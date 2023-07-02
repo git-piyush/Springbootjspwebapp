@@ -40,6 +40,11 @@ public class PostController {
 		PostResponseDTO newPost = postService.savePost(postRequestDTO);
 		return "redirect:getAllPost";
 	}
+	@GetMapping("/deletePost/{postId}")
+	public String deletePost(@PathVariable Long postId) {
+		Post post = postService.deletePost(postId);
+		return "redirect:/getAllPost";
+	}
 	
 	@RequestMapping(value = "/getAllPost",method = RequestMethod.GET)
 	public String getALLPost(Model model,
@@ -60,4 +65,12 @@ public class PostController {
 		model.addAttribute("post",post);
 		return "createPostForm";
 	}
+	
+	@PostMapping("/loadPostList")
+	public String getPosts(@ModelAttribute PostRequestDTO postRequestDTO) {
+		List<Post> post = postService.getPostBySearchCriteria(postRequestDTO);
+		return "postList";
+	}
+	
+
 }

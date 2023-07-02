@@ -5,10 +5,12 @@
 
 <%@ page import="com.blogApp.entity.Post" %>
 <%@ page import="java.util.List" %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Colorful Table Page</title>
+    <title>Post List</title>
     <style>
         .odd-row {
             background-color: lightblue;
@@ -32,13 +34,14 @@
 </head>
 <body>
 <!-- Display the data -->
+<h4>This is list of posts fetched by JPA findAll method</h4>
 <table style="width:70%" id="cssTable" >
     <thead>
         <tr>
              <th><a href="?sortBy=id&amp;ascDir=${ascDir.equals('asc') ? 'desc' : 'asc'}">Title</a></th>
         	<th><a href="?sortBy=title&amp;ascDir=${ascDir.equals('asc') ? 'desc' : 'asc'}">Description</a></th>
             <th><a href="?sortField=name&amp;sortOrder=${yourData.sortOrder.equals('asc') ? 'desc' : 'asc'}">Content</a></th>
-            
+            <th colspan='2' >Action</th>
         </tr>
     </thead>
     <tbody>
@@ -47,6 +50,10 @@
                 <td><a href="/getPost/${yourData.id}">${yourData.title}</a></td>
                 <td>${yourData.description}</td>
                 <td>${yourData.content}</td>
+                <td>
+                <button onclick="location.href='/getPost/${yourData.id}'" type="button">Edit</button>
+        	    <button onclick="location.href='/deletePost/${yourData.id}'" type="button">Delete</button>               	
+                </td>
             </tr>
         </c:forEach>
     </tbody>
@@ -85,31 +92,6 @@
         </c:choose>
     </c:if>
 </div>
-
-<table class="table">
-<% List<Post> allPost = (List)session.getAttribute("allPost");
-   request.setAttribute("allPost", allPost); %>
-        <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
-            <!-- Add more table headers if needed -->
-        </tr>
-        <% 
-            List<Post> posts = (List) request.getAttribute("allPost");
-            for (Post post : posts) {
-        %>
-        <tr>
-            <td><%= post.getTitle() %></td>
-            <td><%= post.getDescription() %></td>
-            <!-- Add more cells if needed -->
-        </tr>
-        <%
-            }
-        %>
-    </table>
-
-
-
 <div class="container">
         <button onclick="location.href='/blogAppDashBoard'" type="button">
          Blog App DashBoard</button>

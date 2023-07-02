@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.blogApp.entity.Post;
 import com.blogApp.exception.ResourceNotFoundException;
+import com.blogApp.repository.PostDAO;
+import com.blogApp.repository.PostDAOImpl;
 import com.blogApp.repository.PostRepository;
 import com.blogApp.requestDTO.PostRequestDTO;
 import com.blogApp.responseDTO.PostResponse;
@@ -22,12 +24,18 @@ import com.blogApp.service.PostService;
 
 @Service
 public class PostServiceImpl implements PostService {
+	
+	@Autowired
+	PostDAOImpl postDAOImpl;
 
 	@Autowired
 	private PostRepository postRepository;
 	
 	@Autowired
 	private ModelMapper mapper;
+	
+	@Autowired
+	private PostDAO postDAO;
 
 	@Override
 	public PostResponseDTO savePost(PostRequestDTO postRequestDTO) {
@@ -47,18 +55,6 @@ public class PostServiceImpl implements PostService {
 		
 		Pageable page = PageRequest.of(pageNo, pageSize, sort);
 		Page<Post> allPost = postRepository.findAll(page);
-		/*
-		 * if (allPost != null) { List<PostResponseDTO> allPosts =
-		 * allPost.getContent().stream().map(post ->
-		 * mapPostToPostResponseDTO(post)).collect(Collectors.toList()); PostResponse
-		 * postResponse = new PostResponse(); postResponse.setPostResponse(allPosts);
-		 * postResponse.setPageNo(allPost.getNumber());
-		 * postResponse.setPageSize(allPost.getSize());
-		 * postResponse.setTotalElements(allPost.getTotalElements());
-		 * postResponse.setTotalPages(allPost.getTotalPages());
-		 * postResponse.setLast(allPost.isLast()); return postResponse; }
-		 */
-		
 		return allPost;
 	}
 
@@ -93,12 +89,6 @@ public class PostServiceImpl implements PostService {
 	//convert postRequestDTO to Post Entity
 	private Post mapPostRequestDTOToPostEntity(PostRequestDTO postRequestDTO) {
 		Post post = mapper.map(postRequestDTO, Post.class);
-		
-		/*
-		 * Post post = new Post(); post.setTitle(postRequestDTO.getTitle());
-		 * post.setDescription(postRequestDTO.getDescription());
-		 * post.setContent(postRequestDTO.getContent());
-		 */
 		return post;
 	}
 	
@@ -106,17 +96,17 @@ public class PostServiceImpl implements PostService {
 	private PostResponseDTO mapPostToPostResponseDTO(Post post) {
 		
 		PostResponseDTO postResponseDTO = mapper.map(post, PostResponseDTO.class);
-		
-		
-		/*
-		 * PostResponseDTO postResponseDTO = new PostResponseDTO();
-		 * postResponseDTO.setId(post.getId());
-		 * postResponseDTO.setTitle(post.getTitle());
-		 * postResponseDTO.setDescription(post.getDescription());
-		 * postResponseDTO.setContent(post.getContent());
-		 */
-		
 		return postResponseDTO;
+	}
+
+	@Override
+	public List<Post> getPostBySearchCriteria(PostRequestDTO postRequestDTO) {
+		
+		List<Post> postList =  postDAO.getPostBySearchCriteria(postRequestDTO);
+		
+		
+		
+		return null;
 	}
 	
 }

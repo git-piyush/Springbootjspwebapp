@@ -57,14 +57,11 @@ public class Post {
 	
 	@Column(name="modifiedDate", nullable = false)
 	private Date modifiedDate;
-	
-	/*
-	 * @OneToMany(mappedBy = "post", fetch =FetchType.LAZY, cascade =
-	 * CascadeType.ALL)
-	 * 
-	 * @JsonManagedReference private List<Comment> comment = new
-	 * ArrayList<Comment>();
-	 */
+
+	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<Comment> comment = new ArrayList<Comment>();
+
 	@PreUpdate
 	@PrePersist
 	public void updateTimeStamps()

@@ -62,7 +62,9 @@
         <h2>Create Post</h2>
         <form action="/createPost" method="post">
         	
-            <input type="hidden" id="id" name="id" value = "${post.id}" required>
+            <div style="display: none">
+            	<input type="number" id="id" name="id" value ="" >${post.id}</input>
+            </div>
         
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" value = "${post.title}" required>

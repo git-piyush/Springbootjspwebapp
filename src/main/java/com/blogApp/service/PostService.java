@@ -22,4 +22,6 @@ public interface PostService {
 
 	public Post deletePost(Long postId);
 	
+	public List<Post> getPostBySearchCriteria(PostRequestDTO postRequestDTO);
+	
 }

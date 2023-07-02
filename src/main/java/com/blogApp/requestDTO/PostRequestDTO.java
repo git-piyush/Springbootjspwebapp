@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class PostRequestDTO {
 
-	private long id;
+	private String id;
 	
 	@NotEmpty
 	@Size(min = 2, message="Post title should be at least 2 charecters")
