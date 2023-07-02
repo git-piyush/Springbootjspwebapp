@@ -5,7 +5,11 @@
 
 <%@ page import="com.blogApp.entity.Post" %>
 <%@ page import="java.util.List" %>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +27,7 @@
             color: red;
         }
         .container {
-            
+             padding-top: 25px;
         }
         
         #cssTable td {
@@ -48,14 +52,50 @@
 #posts th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
-  background-color: #04AA6D;
+  text-align: center;
+  background-color: #36454F;
   color: white;
 }
-    </style>
+</style>
+
+<script>
+function myfunction(id) {   
+	if (confirm("Are you sure to delete this Post?")) {
+	    ajaxCall(id);
+	  }else{
+		  return;
+		  }
+	     }
+function ajaxCall(id) {
+	alert(window.location.hostname);
+	alert(window.location.port);
+	var url = window.location.hostname+":"+window.location.port+"/deletePost/"+id;
+	alert(url);
+    $.ajax({
+        url:window.location.hostname+":"+window.location.port+"/deletePost/"+id,
+
+        // Type of Request
+        type: 'DELETE',
+
+        // Function to call when to
+        // request is ok
+        success: function (data) {
+            var x = JSON.stringify(data);
+            console.log(x);
+        },
+
+        // Error handling
+        error: function (error) {
+            console.log(`Error ${error}`);
+        }
+    });
+}	     
+</script>
+
+
 </head>
 <body>
-<!-- Display the data -->
+<marquee width="60%" direction="left" height="40px">This is a Springboot Web application.</marquee>
 <h4>This is list of posts fetched by JPA findAll method</h4>
 <table style="width:70%" id="posts" >
     <thead>
@@ -72,9 +112,10 @@
                 <td><a href="/getPost/${yourData.id}">${yourData.title}</a></td>
                 <td>${yourData.description}</td>
                 <td>${yourData.content}</td>
-                <td>
-                <button onclick="location.href='/getPost/${yourData.id}'" type="button">Edit</button>
-        	    <button onclick="location.href='/deletePost/${yourData.id}'" type="button">Delete</button>               	
+                <td align="center">
+                <button onclick="location.href='/getPost/${yourData.id}'" type="button" class="btn btn-primary" >Edit</button>
+        	    <button onclick="location.href='/deletePost/${yourData.id}'" type="button" class="btn btn-danger">Delete</button> 
+        	    <button type="button" class="btn btn-danger" onclick = "myfunction(${yourData.id})">Delete</button>              	
                 </td>
             </tr>
         </c:forEach>
@@ -115,7 +156,7 @@
     </c:if>
 </div>
 <div class="container">
-        <button onclick="location.href='/blogAppDashBoard'" type="button">
+        <button onclick="location.href='/blogAppDashBoard'" type="button" class="btn btn-secondary">
          Blog App DashBoard</button>
     </div>
 </body>
