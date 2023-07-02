@@ -66,10 +66,11 @@ public class PostController {
 		return "createPostForm";
 	}
 	
-	@PostMapping("/loadPostList")
-	public String getPosts(@ModelAttribute PostRequestDTO postRequestDTO) {
-		List<Post> post = postService.getPostBySearchCriteria(postRequestDTO);
-		return "postList";
+	@GetMapping("/searchPost")
+	public String getPosts(Model model,@ModelAttribute PostRequestDTO postRequestDTO) {
+		List<Post> allPost = postService.getPostBySearchCriteria(postRequestDTO);
+		model.addAttribute("allPost",allPost);
+		return "postList1";
 	}
 	
 

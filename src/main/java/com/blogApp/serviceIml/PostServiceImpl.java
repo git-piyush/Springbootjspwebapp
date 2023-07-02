@@ -102,11 +102,8 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public List<Post> getPostBySearchCriteria(PostRequestDTO postRequestDTO) {
 		
-		List<Post> postList =  postDAO.getPostBySearchCriteria(postRequestDTO);
-		
-		
-		
-		return null;
+		List<Post> postList =  postDAO.getPostBySearchCriteria(postRequestDTO);		
+		return postList;
 	}
 	
 }

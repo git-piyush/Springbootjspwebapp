@@ -58,6 +58,7 @@
                 <li><a href="settings.jsp">Settings</a></li>
                 <li><a href="/getAllPost">ALL Posts</a></li>
                 <li><a href="/createPostForm">Create Post</a></li>
+                <li><a href="/searchPost">Search Post</a></li>
             </ul>
         </div>
         <div class="main-content">

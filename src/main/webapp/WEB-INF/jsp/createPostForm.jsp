@@ -63,7 +63,7 @@
         <form action="/createPost" method="post">
         	
             <div style="display: none">
-            	<input type="number" id="id" name="id" value ="" >${post.id}</input>
+            	<input type="number" id="id" name="id" value ="${post.id}" ></input>
             </div>
         
             <label for="title">Title:</label>

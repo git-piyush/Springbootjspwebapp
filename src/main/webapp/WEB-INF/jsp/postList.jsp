@@ -30,12 +30,34 @@
     text-align: center; 
     vertical-align: middle;
 }
+        #posts {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#posts td, #posts th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#posts tr:nth-child(even){background-color: #f2f2f2;}
+
+#posts tr:hover {background-color: #ddd;}
+
+#posts th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
     </style>
 </head>
 <body>
 <!-- Display the data -->
 <h4>This is list of posts fetched by JPA findAll method</h4>
-<table style="width:70%" id="cssTable" >
+<table style="width:70%" id="posts" >
     <thead>
         <tr>
              <th><a href="?sortBy=id&amp;ascDir=${ascDir.equals('asc') ? 'desc' : 'asc'}">Title</a></th>
